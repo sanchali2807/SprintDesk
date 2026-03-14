@@ -13,6 +13,11 @@ const User = sequelize.define("User",{
     role:{
         type:DataTypes.ENUM("Admin","Manager","Member"),
         defaultValue:"member"
+    },
+    status:{
+        type:DataTypes.ENUM("pending","approved","rejected"),
+        defaultValue:"pending",
+        // allowNull:true
     }
 });
 
