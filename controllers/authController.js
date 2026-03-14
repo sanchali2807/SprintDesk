@@ -1,6 +1,6 @@
 import { hash } from "bcrypt";
 import User from "../models/userModel.js";
-import becrypt from "becrypt";
+import becrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 export const registerUser = async(req,res)=>{
