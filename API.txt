@@ -1,0 +1,11 @@
+register 
+/auth/register POST
+
+login
+/auth/login POST
+
+approve
+/admin/approve/id PATCH
+also need admin token for the admin to approve the registeration request
+
+
