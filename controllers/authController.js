@@ -77,13 +77,18 @@ export const loginUser = async(req,res)=>{
 export const approveUser = async(req,res)=>{
     try{
         const {id} = req.params;
+        const {status} = req.body;
+        if(!["approved","rejected"].includes(status)){
+            return res.status(404).json({message:"status must be approved or rejected"});
+        }
         const user = await User.findByPk(id);
         if(!user){
             return res.status(400).json({message:"user does not exist"});
         }
-        user.status = "approved";
+        user.status = status;
+        await user.save(); // this will save the recent chaneges in mysql 
         res.json({
-            message:"User approved successfully",
+            message:`User ${status} successfully`,
             user
         });
 
