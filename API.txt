@@ -9,3 +9,41 @@ approve
 also need admin token for the admin to approve the registeration request
 
 
+Managers can:
+Create tasks
+Assign tasks to members
+Change task status
+Update task details
+
+Example:
+POST /tasks
+PATCH /tasks/:id
+DELETE /tasks/:id
+
+Task example:
+Task
+title
+description
+assignedTo
+status
+priority
+deadline
+projectId
+
+Managers can:
+View team members
+Assign members to projects
+Remove members from projects
+But they cannot create or approve users.
+Only Admin does that.
+
+
+Members can:
+View assigned tasks
+Update task status
+Comment on tasks
+
+Example:
+GET /tasks/my-tasks
+PATCH /tasks/:id/status
+POST /tasks/:id/comment
