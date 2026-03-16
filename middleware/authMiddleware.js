@@ -19,3 +19,14 @@ next();
 }
 
 }
+
+
+export const verifyAdmin = (req,res,next)=>{
+    console.log("decoded token", req.user);
+    if(req.user.role !== "Admin"){
+        return res.status(500).json({
+            message : "admin access required"
+        })
+    }
+    next();
+}
