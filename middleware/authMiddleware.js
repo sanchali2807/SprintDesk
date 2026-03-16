@@ -30,3 +30,13 @@ export const verifyAdmin = (req,res,next)=>{
     }
     next();
 }
+
+export const verifyManager = (req,res,next)=>{
+    console.log(req.user);
+    if(req.user.role!=="Manager"){
+        return res.status(403).json({
+            message:"manager or admin access required"
+        })
+    }
+    next();
+}
