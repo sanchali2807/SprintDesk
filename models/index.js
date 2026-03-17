@@ -5,7 +5,7 @@
 import User from "./userModel.js";
 import Project from "./project.js";
 import ProjectMember from "./ProjectMember.js";
-
+import Task from "./task.js";
 
 //creater relationship
 User.hasMany(Project,{foreignKey:"createdBy"});
@@ -23,3 +23,21 @@ Project.belongsToMany(User,{
     through:ProjectMember,
     foreignKey:"projectId"
 })
+
+
+// task belong to project
+Task.belongsTo(Project,{
+    foreignKey:"projectId"
+});
+Project.hasMany(Task, { 
+    foreignKey: "projectId"
+ });
+
+// task belongs to user
+Task.belongsTo(User,{
+    foreignKey:"assignedTo" ,as:"assignedUser"
+});
+
+Task.belongsTo(User, { 
+    foreignKey: "createdBy", as: "creator"
+ });
