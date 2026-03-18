@@ -18,7 +18,11 @@ try{
 const assignedMember = await ProjectMember.findOne({
     where: { userId: assignedTo, projectId }
 });
-
+if(member.role !== "Member"){
+    return res.status(400).json({
+        message : "only member can be assigned"
+    })
+}
 if (!assignedMember) {
     return res.status(400).json({
         message: "Assigned user is not part of this project"

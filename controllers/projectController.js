@@ -12,6 +12,11 @@ export const createProject = async(req,res)=>{
             // req.user.id is the id of the user currently logged in 
             // req.user have the payload of the token that was passed
         })
+         // ✅ 2. AUTO-ADD creator (manager) to project
+        await ProjectMember.create({
+            userId: req.user.id,
+            projectId: project.id
+        });
         res.status(200).json({
             message : project
         })

@@ -23,7 +23,7 @@ console.log("USER FOUND:", user);
 console.log("PROJECT FOUND:", project);
 console.log("ROLE:", user?.role);
     //check for member or admin assign
-    if(user.role!=="Member"&& user.role !== "Manager"){
+    if(user.role!=="Member"){
         return res.status(400).json({
             message:"Only member can be assigned"
         })
