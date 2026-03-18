@@ -4,6 +4,7 @@ import authRoutes from "./routes/authRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js"
 import projectRoutes from "./routes/projectRoutes.js";
 import ProjectMemberRouter from './routes/projectMemberRoute.js';
+import taskRoutes from './routes/taskRoutes.js';
 const app = express();
 
 // allows rontend ruuning on different port to access your apis
@@ -13,6 +14,7 @@ app.use("/auth",authRoutes);
 app.use("/admin",adminRoutes);
 app.use("/projects",projectRoutes);
 app.use("/project-member",ProjectMemberRouter);
+app.use("/task",taskRoutes);
 // middleware to read json body send by the client 
 
 app.get("/",(req,res)=>{

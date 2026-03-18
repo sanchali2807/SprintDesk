@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 export const verifyToken = (req,res,next)=>{
 const authHeader = req.headers.authorization;
 if(!authHeader){
-    return res.status(404).json({message:"token is required"});
+    return res.status(401).json({message:"token is required"});
 }
 const token = authHeader.split(" ")[1];
 try{
@@ -13,18 +13,18 @@ const decoded = jwt.verify(token,process.env.JWT_SECRET);
 req.user = decoded;
 next();
 }catch(err){
-    return res.status(500).json({
+    return res.status(401).json({
         message : "invalid token"
     })
 }
 
 }
-
-
+//401 for invalid token
+//403 for unauthorised role
 export const verifyAdmin = (req,res,next)=>{
     console.log("decoded token", req.user);
     if(req.user.role !== "Admin"){
-        return res.status(500).json({
+        return res.status(403).json({
             message : "admin access required"
         })
     }

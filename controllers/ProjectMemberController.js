@@ -22,17 +22,19 @@ console.log("BODY:", req.body);
 console.log("USER FOUND:", user);
 console.log("PROJECT FOUND:", project);
 console.log("ROLE:", user?.role);
-    //check for mamber or admin assign
-    if(user.role!=="Member"){
+    //check for member or admin assign
+    if(user.role!=="Member"&& user.role !== "Manager"){
         return res.status(400).json({
             message:"Only member can be assigned"
         })
     }
     if(user.status == "rejected"){
         return res.status(400).json({
-            message:"not authorised"
+            message:"Not authorised"
         })
     }
+
+    //for duplicates
      const existing = await ProjectMember.findOne({
       where:{ userId, projectId }
     });
@@ -48,7 +50,7 @@ console.log("EXISTING MEMBER:", existing);
         projectId
     })
     return res.status(200).json({
-        message:"Projest has been assigned",
+        message:"Project has been assigned",
         data :member
     })}
     catch(err){
