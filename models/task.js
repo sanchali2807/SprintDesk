@@ -10,6 +10,10 @@ const Task = sequelize.define("Task",{
       title: {
        type: DataTypes.STRING,
     allowNull: false,
+    // normalize for same name 
+    set(value){
+      this.setDataValue("title",value.trim().toLowerCase());
+    }
   },
 
   description: {
@@ -41,6 +45,14 @@ const Task = sequelize.define("Task",{
 
   createdBy: {
     type: DataTypes.INTEGER,
-  },
+  }
+},
+{
+  indexes : [
+    {
+      unique : true,
+      fields : ["title","projectId"]
+    }
+  ]
 }) 
 export default Task;

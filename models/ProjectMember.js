@@ -10,6 +10,11 @@ const ProjectMember = sequelize.define("ProjectMember",{
   projectId: {
     type: DataTypes.INTEGER,
     allowNull: false
+  },
+  role: {
+    type:DataTypes.ENUM("Manager","Member"),
+    allowNull:false,
+    defaultValue:"Member"
   }
 });
 export default ProjectMember;
