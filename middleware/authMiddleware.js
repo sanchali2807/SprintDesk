@@ -40,3 +40,15 @@ export const verifyManager = (req,res,next)=>{
     }
     next();
 }
+
+// ...authorizeRole => expects unlimited no of arguements and then converts them in an array 
+export const authorizeRole = (...allowedRole) =>{
+    return (req,res,next)=>{
+        if(!allowedRole.includes(req.user.role)){
+            return res.status(403).json({
+                message : "Access Denied"
+            })
+        }
+        next();
+    }
+}
