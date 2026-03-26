@@ -113,6 +113,18 @@ export const updateTask = async(req,res)=>{
         if(user.role !== "Manager" && user.role !== "Admin"){
              return res.status(403).json({ message: "Not authorized" });
         }
+        const member = await ProjectMember.findOne({
+    where: {
+        userId: user.id,
+        projectId: task.projectId
+    }
+});
+
+if (!member) {
+    return res.status(403).json({
+        message: "Not part of project"
+    });
+}
         //extract allowed to update fields
          const { title, description, priority, assignedTo } = req.body;
          const updatedFields = {};
