@@ -1,5 +1,5 @@
-import { Transaction } from "sequelize";
 import Project from "../models/project.js";
+import ProjectMember from "../models/ProjectMember.js";
 import { sequelize } from "../config/database.js";
 
 export const createProject = async(req,res)=>{
@@ -14,7 +14,7 @@ export const createProject = async(req,res)=>{
             createdBy : req.user.id
             // req.user.id is the id of the user currently logged in 
             // req.user have the payload of the token that was passed
-        })
+        },{transaction : t})
          // ✅ 2. AUTO-ADD creator (manager) to project
         await ProjectMember.create({
             userId: req.user.id,
@@ -24,13 +24,19 @@ export const createProject = async(req,res)=>{
 
         await t.commit();
         res.status(200).json({
-            message : project
+            message : "project created successfully",
+            project
         })
     }catch(err){
         await t.rollback();
-        console.log(err);
         return res.status(500).json({
             message : err.message
         })
     }
 }
+
+
+// //🔥 Transaction
+// Guarantees:
+// Project + Member = always consisten
+// if error occurs on creating project member wihtout tramsaction the project will have already been formed and this will cause db in consistency
