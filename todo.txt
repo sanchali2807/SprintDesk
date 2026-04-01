@@ -1,3 +1,5 @@
 need to make middle ware for name passowrd validation and for all member and project members checks
 
 can remove verify admin and manager as there is already authorizeRole middleware
+
+need to add the expiry date for the jWT token
